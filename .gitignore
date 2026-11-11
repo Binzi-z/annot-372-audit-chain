@@ -1,0 +1,21 @@
+# build output
+/bin/
+*.exe
+*.test
+
+# runtime data
+/data/
+*.jsonl
+!testdata/**/*.jsonl
+
+# secrets
+.env
+.env.*
+*.pem
+*.key
+
+# editor
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
