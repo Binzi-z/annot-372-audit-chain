@@ -21,7 +21,12 @@ var (
 func main() {
 	flag.Parse()
 
-	w, err := audit.NewWriter(*dataDir)
+	// 生产环境把封存后的段设为只读（WORM）；若底层存储支持 Object Lock/
+	// chattr +i，可在此基础上进一步加固。
+	w, err := audit.NewWriterWithOptions(*dataDir, audit.Options{
+		WORMImmutable: true,
+		SealOnClose:   true,
+	})
 	if err != nil {
 		log.Fatalf("init writer: %v", err)
 	}
